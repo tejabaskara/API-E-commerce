@@ -19,6 +19,7 @@ public class Main {
         httpServer.createContext("/products", new products.handler());
         httpServer.createContext("/addresses", new addresses.handler());
         httpServer.createContext("/reviews", new reviews.handler());
+        httpServer.createContext("/orders", new orders.handler());
         httpServer.setExecutor(Executors.newSingleThreadExecutor());
         httpServer.start();
     }
