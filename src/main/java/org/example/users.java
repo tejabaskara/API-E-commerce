@@ -6,13 +6,13 @@ import com.sun.net.httpserver.HttpHandler;
 import java.io.IOException;
 import java.io.OutputStream;
 
-public class Handler {
-    public static class MovieHandler implements HttpHandler {
+public class users {
+    public static class handler implements HttpHandler {
         @Override
         public void handle(HttpExchange exchange) throws IOException {
             if ("GET".equals(exchange.getRequestMethod())){
                 OutputStream outputStream = exchange.getResponseBody();
-                String reponseToBeSentBack = "hello world";
+                String reponseToBeSentBack = "Data data USER yang ada di dalam database";
                 exchange.sendResponseHeaders(200, reponseToBeSentBack.length());
 
                 outputStream.write(reponseToBeSentBack.getBytes());
