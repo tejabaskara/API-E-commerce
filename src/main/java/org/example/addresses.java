@@ -10,9 +10,10 @@ public class addresses {
     public static class handler implements HttpHandler {
         @Override
         public void handle(HttpExchange exchange) throws IOException {
+            System.out.println(exchange.getRequestMethod());
             if ("GET".equals(exchange.getRequestMethod())) {
                 OutputStream outputStream = exchange.getResponseBody();
-                String reponseToBeSentBack = "Data data alamat yang ada di dalam database";
+                String reponseToBeSentBack = "PPP";
                 exchange.sendResponseHeaders(200, reponseToBeSentBack.length());
 
                 outputStream.write(reponseToBeSentBack.getBytes());
