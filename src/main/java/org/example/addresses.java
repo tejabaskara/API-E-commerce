@@ -1,5 +1,7 @@
 package org.example;
 
+import org.json.JSONObject;
+
 public class addresses {
     private int users;
     private String type;
@@ -27,5 +29,18 @@ public class addresses {
         return type;
     }
 
+    public int parseJson(String json){
+        try {
+            JSONObject obj = new JSONObject(json);
+            users = obj.getInt("id");
+            type = obj.getString("type");
+            city = obj.getString("city");
+            province = obj.getString("province");
+            postcode = obj.getString("postcode");
+        }catch (Exception e){
+            return 1;
+        }
+        return 0;
+    }
 
 }

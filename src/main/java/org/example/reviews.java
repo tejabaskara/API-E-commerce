@@ -28,7 +28,7 @@ public class reviews {
     public int parseJson(String json){
         try {
             JSONObject obj = new JSONObject(json);
-            order = obj.getInt("id");
+            order = obj.getInt("order");
             description = obj.getString("description");
             star = obj.getInt("star");
         }catch (Exception exception){

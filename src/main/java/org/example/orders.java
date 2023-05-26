@@ -2,23 +2,55 @@ package org.example;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.OutputStream;
 
 public class orders {
-    public static class handler implements HttpHandler {
-        @Override
-        public void handle(HttpExchange exchange) throws IOException {
-            if ("GET".equals(exchange.getRequestMethod())){
-                OutputStream outputStream = exchange.getResponseBody();
-                String reponseToBeSentBack = "Data data order yang ada di dalam database";
-                exchange.sendResponseHeaders(200, reponseToBeSentBack.length());
+    private int orders;
+    private int buyer;
+    private int note;
+    private int total;
+    private int discount;
+    private String isPaid;
 
-                outputStream.write(reponseToBeSentBack.getBytes());
-                outputStream.flush();
-                outputStream.close();
-            }
+    public int getOrders() {
+        return orders;
+    }
+
+    public int getBuyer() {
+        return buyer;
+    }
+
+    public int getDiscount() {
+        return discount;
+    }
+
+    public int getNote() {
+        return note;
+    }
+
+    public int getTotal() {
+        return total;
+    }
+
+    public String getIsPaid() {
+        return isPaid;
+    }
+
+    public int parseJson(String json){
+        try {
+            JSONObject obj = new JSONObject(json);
+            orders = obj.getInt("orders");
+            buyer = obj.getInt("buyer");
+            note = obj.getInt("note");
+            total = obj.getInt("total");
+            discount = obj.getInt("discount");
+            isPaid = obj.getString("is_paid");
+        }catch (Exception exception){
+            return 1;
         }
+        return  0;
     }
 }
