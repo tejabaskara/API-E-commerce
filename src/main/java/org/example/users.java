@@ -1,24 +1,42 @@
 package org.example;
 
-import com.sun.net.httpserver.HttpExchange;
-import com.sun.net.httpserver.HttpHandler;
-
-import java.io.IOException;
-import java.io.OutputStream;
+import org.json.JSONObject;
+import org.mortbay.util.ajax.JSON;
 
 public class users {
-    public static class handler implements HttpHandler {
-        @Override
-        public void handle(HttpExchange exchange) throws IOException {
-            if ("GET".equals(exchange.getRequestMethod())){
-                OutputStream outputStream = exchange.getResponseBody();
-                String reponseToBeSentBack = "Data data USER yang ada di dalam database";
-                exchange.sendResponseHeaders(200, reponseToBeSentBack.length());
+   private int id;
+   private String firstName;
+   private String lastName;
+   private String email;
+   private String phoneNumber;
+   private String type;
 
-                outputStream.write(reponseToBeSentBack.getBytes());
-                outputStream.flush();
-                outputStream.close();
-            }
-        }
-    }
+   public int id(){
+       return  id;
+   }
+   public String firstName(){
+       return firstName;
+   }
+   public String lastName(){
+       return lastName;
+   }
+   public String email(){
+       return email;
+   }
+   public String phoneNumber(){
+       return phoneNumber;
+   }
+   public String type(){
+       return type;
+   }
+
+   public void parseJson(String json){
+       JSONObject obj = new JSONObject(json);
+       id = obj.getInt("id");
+       firstName = obj.getString("first_name");
+       lastName = obj.getString("last_name");
+       email = obj.getString("email");
+       phoneNumber = obj.getString("phone_number");
+       type = obj.getString("type");
+   }
 }

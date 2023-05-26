@@ -2,37 +2,68 @@ package org.example;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
-import com.sun.net.httpserver.HttpServer;
+import org.json.*;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
+
+
 
 public class Handler {
 
     public static class handler implements HttpHandler {
         public void handle(HttpExchange exchange) throws IOException {
             String pesan="";
+            String[] URL = parseString(String.valueOf(exchange.getRequestURI()));
+            String path = URL[1];
+
             if ("GET".equals(exchange.getRequestMethod())){
                 OutputStream outputStream = exchange.getResponseBody();
-                String path = String.valueOf(exchange.getRequestURI());
-                if (path.equals("/users")){
+
+                if (path.equals("users")){
                     pesan = "users";
-                } else if (path.equals("/orders")) {
+                } else if (path.equals("orders")) {
                     pesan = "orders";
-                } else if (path.equals("/reviews")) {
+                } else if (path.equals("reviews")) {
                     pesan = "reviews";
-                }else if (path.equals("/detailOrders")) {
+                }else if (path.equals("detailOrders")) {
                     pesan = "detailOrders";
-                }else if (path.equals("/addresses")) {
+                }else if (path.equals("addresses")) {
                     pesan = "addressses";
+                } else {
+                    exchange.sendResponseHeaders(400, pesan.length());
+                    outputStream.write(pesan.getBytes());
+                    outputStream.flush();
+                    outputStream.close();
                 }
                 exchange.sendResponseHeaders(200, pesan.length());
-
-
                 outputStream.write(pesan.getBytes());
                 outputStream.flush();
                 outputStream.close();
+            } else if ("POST".equals(exchange.getRequestMethod())){
+                InputStreamReader isr = new InputStreamReader(exchange.getRequestBody(), "utf-8");
+                BufferedReader br = new BufferedReader(isr);
+                int i;
+                StringBuilder buf = new StringBuilder();
+                while ((i = br.read()) != -1) {
+                    buf.append((char) i);
+                }
+                br.close();
+                isr.close();
+                String json = buf.toString();
+                if (path.equals("users")){
+                    users user = new users();
+                    user.parseJson(json);
+                    System.out.println(user.id());
+                }
             }
         }
     }
+    public static String[] parseString(String string){
+        String[] hasil = string.split("/");
+        return hasil;
+    }
+
 }
