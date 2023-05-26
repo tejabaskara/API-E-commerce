@@ -8,7 +8,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
-
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class Handler {
@@ -32,6 +33,8 @@ public class Handler {
                     pesan = "detailOrders";
                 }else if (path.equals("addresses")) {
                     pesan = "addressses";
+                } else if (path.equals("products")) {
+                    pesan = "products";
                 } else {
                     exchange.sendResponseHeaders(400, pesan.length());
                     outputStream.write(pesan.getBytes());
@@ -43,6 +46,7 @@ public class Handler {
                 outputStream.flush();
                 outputStream.close();
             } else if ("POST".equals(exchange.getRequestMethod())){
+                OutputStream outputStream = exchange.getResponseBody();
                 InputStreamReader isr = new InputStreamReader(exchange.getRequestBody(), "utf-8");
                 BufferedReader br = new BufferedReader(isr);
                 int i;
@@ -53,10 +57,51 @@ public class Handler {
                 br.close();
                 isr.close();
                 String json = buf.toString();
-                if (path.equals("users")){
+                if (path.equals("users")) {
                     users user = new users();
-                    user.parseJson(json);
-                    System.out.println(user.id());
+                    if (user.parseJson(json) != 1) {
+                        pesan = "berhasil";
+                        exchange.sendResponseHeaders(200, pesan.length());
+                        outputStream.write(pesan.getBytes());
+                        outputStream.flush();
+                        outputStream.close();
+                    } else {
+                        pesan = "data kurang";
+                        exchange.sendResponseHeaders(401, pesan.length());
+                        outputStream.write(pesan.getBytes());
+                        outputStream.flush();
+                        outputStream.close();
+                    }
+                } else if (path.equals("products")) {
+                    products product = new products();
+                    if (product.parseJson(json) != 1) {
+                        pesan = "berhasil";
+                        exchange.sendResponseHeaders(200, pesan.length());
+                        outputStream.write(pesan.getBytes());
+                        outputStream.flush();
+                        outputStream.close();
+                    } else {
+                        pesan = "data kurang";
+                        exchange.sendResponseHeaders(401, pesan.length());
+                        outputStream.write(pesan.getBytes());
+                        outputStream.flush();
+                        outputStream.close();
+                    }
+                } else if (path.equals("reviews")) {
+                    reviews review = new reviews();
+                    if (review.parseJson(json) != 1){
+                        pesan = "berhasil";
+                        exchange.sendResponseHeaders(200, pesan.length());
+                        outputStream.write(pesan.getBytes());
+                        outputStream.flush();
+                        outputStream.close();
+                    } else {
+                        pesan = "data kurang";
+                        exchange.sendResponseHeaders(401, pesan.length());
+                        outputStream.write(pesan.getBytes());
+                        outputStream.flush();
+                        outputStream.close();
+                    }
                 }
             }
         }
@@ -66,4 +111,5 @@ public class Handler {
         return hasil;
     }
 
+    public List<users> userList = new ArrayList<users>();
 }

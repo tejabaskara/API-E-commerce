@@ -2,23 +2,38 @@ package org.example;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.OutputStream;
 
-public class reviews {
-    public static class handler implements HttpHandler {
-        @Override
-        public void handle(HttpExchange exchange) throws IOException {
-            if ("GET".equals(exchange.getRequestMethod())) {
-                OutputStream outputStream = exchange.getResponseBody();
-                String reponseToBeSentBack = "Data data review yang ada di dalam database";
-                exchange.sendResponseHeaders(200, reponseToBeSentBack.length());
 
-                outputStream.write(reponseToBeSentBack.getBytes());
-                outputStream.flush();
-                outputStream.close();
-            }
+public class reviews {
+    private int order;
+    private int star;
+    private String description;
+
+    public int getOrder() {
+        return order;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public int getStar() {
+        return star;
+    }
+
+    public int parseJson(String json){
+        try {
+            JSONObject obj = new JSONObject(json);
+            order = obj.getInt("id");
+            description = obj.getString("description");
+            star = obj.getInt("star");
+        }catch (Exception exception){
+            return 1;
         }
+        return  0;
     }
 }

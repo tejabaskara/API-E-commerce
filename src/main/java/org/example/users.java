@@ -1,7 +1,10 @@
 package org.example;
 
 import org.json.JSONObject;
-import org.mortbay.util.ajax.JSON;
+
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class users {
    private int id;
@@ -10,8 +13,10 @@ public class users {
    private String email;
    private String phoneNumber;
    private String type;
+   public List<users> userList = new ArrayList<users>();
 
-   public int id(){
+
+   public Integer id(){
        return  id;
    }
    public String firstName(){
@@ -30,13 +35,18 @@ public class users {
        return type;
    }
 
-   public void parseJson(String json){
-       JSONObject obj = new JSONObject(json);
-       id = obj.getInt("id");
-       firstName = obj.getString("first_name");
-       lastName = obj.getString("last_name");
-       email = obj.getString("email");
-       phoneNumber = obj.getString("phone_number");
-       type = obj.getString("type");
+   public int parseJson(String json){
+       try {
+           JSONObject obj = new JSONObject(json);
+           id = obj.getInt("id");
+           firstName = obj.getString("first_name");
+           lastName = obj.getString("last_name");
+           email = obj.getString("email");
+           phoneNumber = obj.getString("phone_number");
+           type = obj.getString("type");
+       }catch (Exception e){
+           return 1;
+       }
+       return 0;
    }
 }
