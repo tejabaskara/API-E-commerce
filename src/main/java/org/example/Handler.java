@@ -20,6 +20,7 @@ public class Handler {
             String[] URL = parseString(String.valueOf(exchange.getRequestURI()));
             String path = URL[1];
 
+
             if ("GET".equals(exchange.getRequestMethod())){
                 OutputStream outputStream = exchange.getResponseBody();
 
