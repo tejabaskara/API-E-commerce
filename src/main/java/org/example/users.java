@@ -13,7 +13,6 @@ public class users {
    private String email;
    private String phoneNumber;
    private String type;
-   public List<users> userList = new ArrayList<users>();
 
 
    public Integer id(){
@@ -44,6 +43,8 @@ public class users {
            email = obj.getString("email");
            phoneNumber = obj.getString("phone_number");
            type = obj.getString("type");
+           ConnectSQL inputDB = new ConnectSQL();
+           inputDB.inputUsers(id, firstName, lastName, email, phoneNumber, type);
        }catch (Exception e){
            return 1;
        }

@@ -16,16 +16,17 @@ public class Handler {
 
     public static class handler implements HttpHandler {
         public void handle(HttpExchange exchange) throws IOException {
-            String pesan="";
             String[] URL = parseString(String.valueOf(exchange.getRequestURI()));
             String path = URL[1];
+            String pesan = "";
 
 
             if ("GET".equals(exchange.getRequestMethod())){
                 OutputStream outputStream = exchange.getResponseBody();
 
                 if (path.equals("users")){
-                    pesan = "users";
+                    ConnectSQL isiTabel = new ConnectSQL();
+                    pesan = isiTabel.selectAllUser();
                 } else if (path.equals("orders")) {
                     pesan = "orders";
                 } else if (path.equals("reviews")) {
