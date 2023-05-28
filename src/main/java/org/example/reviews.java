@@ -31,6 +31,8 @@ public class reviews {
             order = obj.getInt("order");
             description = obj.getString("description");
             star = obj.getInt("star");
+            ConnectSQL inputDB = new ConnectSQL();
+            inputDB.inputReviews(order, star,description);
         }catch (Exception exception){
             return 1;
         }

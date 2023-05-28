@@ -74,6 +74,35 @@ public class ConnectSQL {
             System.out.println(e.getMessage());
         }
     }
+    public void inputReviews(int order, int star, String description) {
+        String sql = "INSERT INTO reviews( order, star, description) VALUES(?,?,?)";
+        try{
+            Connection conn = this.connect();
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, order);
+            pstmt.setInt(2, star );
+            pstmt.setString(3, description );
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    public void inputOrders(int id, int buyer, int note, int total, int discount, String isPaid) {
+        String sql = "INSERT INTO order(id, buyer, note, total, discount, is_paid) VALUES(?,?,?)";
+        try{
+            Connection conn = this.connect();
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, id);
+            pstmt.setInt(2, buyer );
+            pstmt.setInt(3, note );
+            pstmt.setInt(4, total);
+            pstmt.setInt(5, discount);
+            pstmt.setString(6, isPaid);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 
     public String appendString(ArrayList<String> json ){
         StringBuffer gabung = new StringBuffer();
