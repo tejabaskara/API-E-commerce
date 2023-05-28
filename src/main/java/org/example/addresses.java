@@ -5,6 +5,8 @@ import org.json.JSONObject;
 public class addresses {
     private int users;
     private String type;
+    private String line1;
+    private String line2;
     private String city;
     private String province;
     private String postcode;
@@ -29,14 +31,26 @@ public class addresses {
         return type;
     }
 
+    public String getLine1() {
+        return line1;
+    }
+
+    public String getLine2() {
+        return line2;
+    }
+
     public int parseJson(String json){
         try {
             JSONObject obj = new JSONObject(json);
             users = obj.getInt("id");
             type = obj.getString("type");
-            city = obj.getString("city");
+            line1 = obj.getString("line1");
+            line2 = obj.getString("line2");
             province = obj.getString("province");
+            city = obj.getString("city");
             postcode = obj.getString("postcode");
+            ConnectSQL inputDB = new ConnectSQL();
+            inputDB.inputAddresses(users, type, line1, line2, province, city, postcode);
         }catch (Exception e){
             return 1;
         }

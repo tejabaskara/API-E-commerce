@@ -40,6 +40,41 @@ public class ConnectSQL {
         }
     }
 
+    public void inputProducts(int id, int seller, String title, String description, String price, int stock) {
+        String sql = "INSERT INTO products( id, seller, title, description, price, stock) VALUES(?,?,?,?,?,?)";
+        try{
+            Connection conn = this.connect();
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, id);
+            pstmt.setInt(2, seller );
+            pstmt.setString(3, title );
+            pstmt.setString(4, description );
+            pstmt.setString(5, price );
+            pstmt.setInt(6, stock );
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void inputAddresses(int id, String type, String line1, String line2, String city, String province, String postcode) {
+        String sql = "INSERT INTO addresses( id, type, line1, line2, city, province, postcode) VALUES(?,?,?,?,?,?,?)";
+        try{
+            Connection conn = this.connect();
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, id);
+            pstmt.setString(2, type );
+            pstmt.setString(3, line1 );
+            pstmt.setString(4, line2 );
+            pstmt.setString(5, city );
+            pstmt.setString(6, province);
+            pstmt.setString(7, postcode);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     public String appendString(ArrayList<String> json ){
         StringBuffer gabung = new StringBuffer();
         for (String s : json) {
@@ -58,16 +93,55 @@ public class ConnectSQL {
             Connection connect = this.connect();
             Statement stmt  = connect.createStatement();
             ResultSet rs    = stmt.executeQuery(sql);
+            // loop through the result set
+            while (rs.next()) {
+                hasil.add(JsonStructure.user(rs.getInt("id"), rs.getString("first_name"),
+                        rs.getString("last_name"), rs.getString("email") ,
+                        rs.getString("phone_number"), rs.getString("type") ));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        String jsonKirim = "{"+ "\n" + appendString(hasil)+"\n"+"}";
+        return jsonKirim;
+    }
+
+    public String selectId(String id){
+        String sql = "SELECT * FROM users WHERE"+ id;
+        ArrayList<String> hasil = new ArrayList<String>();
+
+        try {
+            Connection connect = this.connect();
+            Statement stmt  = connect.createStatement();
+            ResultSet rs    = stmt.executeQuery(sql);
 
 
             // loop through the result set
             while (rs.next()) {
-                hasil.add("\t\"id\" : \"" + rs.getInt("id") +  "\"\n" +
-                        "\t\"first_name\" : \"" + rs.getString("first_name") + "\"\n" +
-                        "\t\"last_name\" : \"" +rs.getString("last_name") + "\"\n"+
-                        "\t\"email\" : \"" + rs.getString("email") + "\"\n" +
-                        "\t\"phone_number\" : \"" +rs.getString("phone_number") + "\"\n" +
-                        "\t\"type\" : \"" +rs.getString("type") +"\"");
+                hasil.add(JsonStructure.user(rs.getInt("id"), rs.getString("first_name"),
+                        rs.getString("last_name"), rs.getString("email") ,
+                        rs.getString("phone_number"), rs.getString("type") ));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        String jsonKirim = "{"+ "\n" + appendString(hasil)+"\n"+"}";
+        return jsonKirim;
+    }
+
+    public String selectTable(String table, String id, String table1){
+        String sql = "SELECT * FROM " +table + "WHERE"+ table1 + " = "+ id;
+        ArrayList<String> hasil = new ArrayList<String>();
+
+        try {
+            Connection connect = this.connect();
+            Statement stmt  = connect.createStatement();
+            ResultSet rs    = stmt.executeQuery(sql);
+
+
+            // loop through the result set
+            while (rs.next()) {
+                hasil.add(JsonStructure.user(rs.getInt("id"), rs.getString("first_name"), rs.getString("last_name"), rs.getString("email") , rs.getString("phone_number"), rs.getString("type") ));
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());

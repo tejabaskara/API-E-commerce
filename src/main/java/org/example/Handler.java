@@ -2,12 +2,16 @@ package org.example;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
+import com.sun.net.httpserver.Filter;
 import org.json.*;
 
+import javax.servlet.http.HttpUtils;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.net.URI;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,37 +20,48 @@ public class Handler {
 
     public static class handler implements HttpHandler {
         public void handle(HttpExchange exchange) throws IOException {
-            String[] URL = parseString(String.valueOf(exchange.getRequestURI()));
-            String path = URL[1];
+//            String[] allPath = Parse.path(String.valueOf(exchange.getRequestURI().getPath()));
+//            String path = allPath[1];
+//            String id = allPath[1];
+//            String tabel = allPath[2];
+            String web = exchange.getRequestURI().getPath();
+            String[] allPath = Parse.path(web);
+            String path = allPath[1];
             String pesan = "";
-
 
             if ("GET".equals(exchange.getRequestMethod())){
                 OutputStream outputStream = exchange.getResponseBody();
-
                 if (path.equals("users")){
                     ConnectSQL isiTabel = new ConnectSQL();
-                    pesan = isiTabel.selectAllUser();
+                    if (allPath.length == 2){
+                        pesan = isiTabel.selectAllUser();
+                    } else if (allPath.length == 3) {
+                        pesan = isiTabel.selectId(allPath[2]);
+                    } else if (allPath.length == 4) {
+                        pesan = isiTabel.selectId(allPath[2]);
+                    }
                 } else if (path.equals("orders")) {
-                    pesan = "orders";
+                        pesan = "orders";
                 } else if (path.equals("reviews")) {
-                    pesan = "reviews";
+                        pesan = "reviews";
                 }else if (path.equals("detailOrders")) {
-                    pesan = "detailOrders";
+                        pesan = "detailOrders";
                 }else if (path.equals("addresses")) {
-                    pesan = "addressses";
+                        pesan = "addressses";
                 } else if (path.equals("products")) {
-                    pesan = "products";
+                        pesan = "products";
                 } else {
-                    exchange.sendResponseHeaders(400, pesan.length());
+                        pesan = "Table Not Found";
+                        exchange.sendResponseHeaders(404, pesan.length());
+                        outputStream.write(pesan.getBytes());
+                        outputStream.flush();
+                        outputStream.close();
+                }
+                    exchange.sendResponseHeaders(200, pesan.length());
                     outputStream.write(pesan.getBytes());
                     outputStream.flush();
                     outputStream.close();
-                }
-                exchange.sendResponseHeaders(200, pesan.length());
-                outputStream.write(pesan.getBytes());
-                outputStream.flush();
-                outputStream.close();
+
             } else if ("POST".equals(exchange.getRequestMethod())){
                 OutputStream outputStream = exchange.getResponseBody();
                 InputStreamReader isr = new InputStreamReader(exchange.getRequestBody(), "utf-8");
@@ -108,10 +123,4 @@ public class Handler {
             }
         }
     }
-    public static String[] parseString(String string){
-        String[] hasil = string.split("/");
-        return hasil;
-    }
-
-    public List<users> userList = new ArrayList<users>();
 }

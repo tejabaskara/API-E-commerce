@@ -1,11 +1,7 @@
 package org.example;
 
-import com.sun.net.httpserver.HttpExchange;
-import com.sun.net.httpserver.HttpHandler;
 import org.json.JSONObject;
 
-import java.io.IOException;
-import java.io.OutputStream;
 
 public class products {
     private int id;
@@ -48,6 +44,8 @@ public class products {
             description = obj.getString("description");
             price = obj.getString("price");
             title = obj.getString("title");
+            ConnectSQL inputDB = new ConnectSQL();
+            inputDB.inputProducts(id, seller, title, description, price, stock);
         }catch (Exception exception){
             return 1;
         }
