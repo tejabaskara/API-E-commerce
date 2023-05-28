@@ -58,7 +58,7 @@ public class ConnectSQL {
     }
 
     public void inputAddresses(int id, String type, String line1, String line2, String city, String province, String postcode) {
-        String sql = "INSERT INTO addresses( id, type, line1, line2, city, province, postcode) VALUES(?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO addresses( users, type, line1, line2, city, province, postcode) VALUES(?,?,?,?,?,?,?)";
         try{
             Connection conn = this.connect();
             PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -75,7 +75,7 @@ public class ConnectSQL {
         }
     }
     public void inputReviews(int order, int star, String description) {
-        String sql = "INSERT INTO reviews( order, star, description) VALUES(?,?,?)";
+        String sql = "INSERT INTO reviews( order_id, star, description) VALUES(?,?,?)";
         try{
             Connection conn = this.connect();
             PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -88,7 +88,7 @@ public class ConnectSQL {
         }
     }
     public void inputOrders(int id, int buyer, int note, int total, int discount, String isPaid) {
-        String sql = "INSERT INTO order(id, buyer, note, total, discount, is_paid) VALUES(?,?,?,?,?,?)";
+        String sql = "INSERT INTO orders(id, buyer, note, total, discount, is_paid) VALUES(?,?,?,?,?,?)";
         try{
             Connection conn = this.connect();
             PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -105,7 +105,7 @@ public class ConnectSQL {
     }
 
     public void inputOrdersDetails(int order, int product, int quantity, int price) {
-        String sql = "INSERT INTO order_details(order,product,quantity,price) VALUES(?,?,?,?)";
+        String sql = "INSERT INTO order_details( order_id ,product ,quantity ,price) VALUES(?,?,?,?)";
         try{
             Connection conn = this.connect();
             PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -129,19 +129,39 @@ public class ConnectSQL {
         return hasil;
     }
 
-    public String selectAllUser(){
-        String sql = "SELECT * FROM users";
+    public String selectAll(String tabel){
+        String sql = "SELECT * FROM " + tabel;
         ArrayList<String> hasil = new ArrayList<String>();
 
         try {
             Connection connect = this.connect();
             Statement stmt  = connect.createStatement();
             ResultSet rs    = stmt.executeQuery(sql);
-            // loop through the result set
-            while (rs.next()) {
-                hasil.add(JsonStructure.user(rs.getInt("id"), rs.getString("first_name"),
-                        rs.getString("last_name"), rs.getString("email") ,
-                        rs.getString("phone_number"), rs.getString("type") ));
+
+            if (tabel.equals("users")){
+                while (rs.next()) {
+                    hasil.add(JsonStructure.user(rs.getInt("id"), rs.getString("first_name"), rs.getString("last_name"), rs.getString("email") , rs.getString("phone_number"), rs.getString("type") ));
+                }
+            } else if (tabel.equals("addresses")) {
+                while (rs.next()) {
+                    hasil.add(JsonStructure.addresses(rs.getInt("id"), rs.getString("type"), rs.getString("line1"), rs.getString("line2") , rs.getString("city"), rs.getString("province"), rs.getString("postcode") ));
+                }
+            } else if (tabel.equals("products")) {
+                while (rs.next()) {
+                    hasil.add(JsonStructure.product(rs.getInt("id"), rs.getInt("seller"), rs.getString("title"), rs.getString("description") , rs.getString("price"), rs.getInt("stock")));
+                }
+            } else if (tabel.equals("orders")) {
+                while (rs.next()) {
+                    hasil.add(JsonStructure.orders(rs.getInt("id"), rs.getInt("buyer"), rs.getInt("note"), rs.getInt("total") , rs.getInt("discount"), rs.getString("is_paid")));
+                }
+            } else if (tabel.equals("orders_details")) {
+                while (rs.next()) {
+                    hasil.add(JsonStructure.orderDetail(rs.getInt("order_id"), rs.getInt("product"), rs.getInt("quantity"), rs.getInt("price")));
+                }
+            } else if (tabel.equals("reviews")) {
+                while (rs.next()) {
+                    hasil.add(JsonStructure.reviews(rs.getInt("order_id"), rs.getInt("star"), rs.getString("description")));
+                }
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -150,8 +170,81 @@ public class ConnectSQL {
         return jsonKirim;
     }
 
-    public String selectId(String id){
-        String sql = "SELECT * FROM users WHERE"+ id;
+
+    /*
+        selectID merupakan methode yang berguna
+        untuk mengambil data sesuai dengan id
+    */
+    public String selectId(String tabel, String id){
+        String sql = "SELECT * FROM "+ tabel + " WHERE id = "+ id;
+        ArrayList<String> hasil = new ArrayList<String>();
+
+        try {
+            Connection connect = this.connect();
+            Statement stmt  = connect.createStatement();
+            ResultSet rs    = stmt.executeQuery(sql);
+
+
+            // loop through the result set
+            if (tabel.equals("users")){
+                while (rs.next()) {
+                    hasil.add(JsonStructure.user(rs.getInt("id"), rs.getString("first_name"), rs.getString("last_name"), rs.getString("email") , rs.getString("phone_number"), rs.getString("type") ));
+                }
+            } else if (tabel.equals("products")) {
+                while (rs.next()) {
+                    hasil.add(JsonStructure.product(rs.getInt("id"), rs.getInt("seller"), rs.getString("title"), rs.getString("description") , rs.getString("price"), rs.getInt("stock")));
+                }
+            } else if (tabel.equals("orders")) {
+                while (rs.next()) {
+                    hasil.add(JsonStructure.orders(rs.getInt("id"), rs.getInt("buyer"), rs.getInt("note"), rs.getInt("total") , rs.getInt("discount"), rs.getString("is_paid")));
+                }
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        String jsonKirim = "{"+ "\n" + appendString(hasil)+"\n"+"}";
+        return jsonKirim;
+    }
+
+    /*
+    selectOrderID merupakan methode yang berguna
+    untuk mengambil data sesuai dengan order id
+     */
+    public String selectOrdersId(String tabel, String id){
+        String sql = "SELECT * FROM "+ tabel + " WHERE order_id = "+ id;
+        ArrayList<String> hasil = new ArrayList<String>();
+
+        try {
+            Connection connect = this.connect();
+            Statement stmt  = connect.createStatement();
+            ResultSet rs    = stmt.executeQuery(sql);
+
+
+            // loop through the result set
+            if (tabel.equals("orders_details")) {
+                while (rs.next()) {
+                    hasil.add(JsonStructure.orderDetail(rs.getInt("order_id"), rs.getInt("product"), rs.getInt("quantity"), rs.getInt("price")));
+                }
+            } else if (tabel.equals("reviews")) {
+                while (rs.next()) {
+                    hasil.add(JsonStructure.reviews(rs.getInt("order_id"), rs.getInt("star"), rs.getString("description")));
+                }
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        String jsonKirim = "{"+ "\n" + appendString(hasil)+"\n"+"}";
+        return jsonKirim;
+    }
+
+    /*
+    selectOrderUsers merupakan methode yang berguna
+    untuk mengambil data sesuai dengan users id
+     */
+    public String selectIdUsers(String tabel, String id){
+        String sql = "SELECT * FROM "+ tabel + " WHERE users = "+ id;
         ArrayList<String> hasil = new ArrayList<String>();
 
         try {
@@ -162,9 +255,7 @@ public class ConnectSQL {
 
             // loop through the result set
             while (rs.next()) {
-                hasil.add(JsonStructure.user(rs.getInt("id"), rs.getString("first_name"),
-                        rs.getString("last_name"), rs.getString("email") ,
-                        rs.getString("phone_number"), rs.getString("type") ));
+                hasil.add(JsonStructure.addresses(rs.getInt("id"), rs.getString("type"), rs.getString("line1"), rs.getString("line2") , rs.getString("city"), rs.getString("province"), rs.getString("postcode") ));
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -173,8 +264,8 @@ public class ConnectSQL {
         return jsonKirim;
     }
 
-    public String selectTable(String table, String id, String table1){
-        String sql = "SELECT * FROM " +table + "WHERE"+ table1 + " = "+ id;
+    public String selectTableUser(String tabel, String id, String tabel1){
+        String sql = "SELECT * FROM " + tabel1 + "WHERE"+ tabel + " = "+ id;
         ArrayList<String> hasil = new ArrayList<String>();
 
         try {
@@ -182,11 +273,54 @@ public class ConnectSQL {
             Statement stmt  = connect.createStatement();
             ResultSet rs    = stmt.executeQuery(sql);
 
-
-            // loop through the result set
             while (rs.next()) {
-                hasil.add(JsonStructure.user(rs.getInt("id"), rs.getString("first_name"), rs.getString("last_name"), rs.getString("email") , rs.getString("phone_number"), rs.getString("type") ));
+                hasil.add(JsonStructure.addresses(rs.getInt("id"), rs.getString("type"), rs.getString("line1"), rs.getString("line2") , rs.getString("city"), rs.getString("province"), rs.getString("postcode") ));
             }
+
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        String jsonKirim = "{"+ "\n" + appendString(hasil)+"\n"+"}";
+        return jsonKirim;
+    }
+
+
+    public String selectTableAddresses(String tabel, String id, String tabel1){
+        String sql = "SELECT * FROM " + tabel1 + "WHERE"+ tabel + " = "+ id;
+        ArrayList<String> hasil = new ArrayList<String>();
+
+        try {
+            Connection connect = this.connect();
+            Statement stmt  = connect.createStatement();
+            ResultSet rs    = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+                hasil.add(JsonStructure.addresses(rs.getInt("id"), rs.getString("type"), rs.getString("line1"), rs.getString("line2") , rs.getString("city"), rs.getString("province"), rs.getString("postcode") ));
+            }
+
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        String jsonKirim = "{"+ "\n" + appendString(hasil)+"\n"+"}";
+        return jsonKirim;
+    }
+
+    public String selectTableProducts(String tabel, String id, String tabel1){
+        String sql = "SELECT * FROM " + tabel1 + "WHERE"+ tabel + " = "+ id;
+        ArrayList<String> hasil = new ArrayList<String>();
+
+        try {
+            Connection connect = this.connect();
+            Statement stmt  = connect.createStatement();
+            ResultSet rs    = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+                hasil.add(JsonStructure.addresses(rs.getInt("id"), rs.getString("type"), rs.getString("line1"), rs.getString("line2") , rs.getString("city"), rs.getString("province"), rs.getString("postcode") ));
+            }
+
+
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }

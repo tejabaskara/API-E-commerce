@@ -44,12 +44,15 @@ public class products {
             description = obj.getString("description");
             price = obj.getString("price");
             title = obj.getString("title");
-            ConnectSQL inputDB = new ConnectSQL();
-            inputDB.inputProducts(id, seller, title, description, price, stock);
         }catch (Exception exception){
             return 1;
         }
         return 0;
+    }
+
+    public void insert(){
+        ConnectSQL inputDB = new ConnectSQL();
+        inputDB.inputProducts(id, seller, title, description, price, stock);
     }
 }
 

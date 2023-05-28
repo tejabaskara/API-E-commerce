@@ -19,11 +19,11 @@ import java.util.List;
 public class Handler {
 
     public static class handler implements HttpHandler {
+
+        /*
+        kelas handle berguna untuk menghandle semua jenis methode yang dimasukkan ke dalam API
+         */
         public void handle(HttpExchange exchange) throws IOException {
-//            String[] allPath = Parse.path(String.valueOf(exchange.getRequestURI().getPath()));
-//            String path = allPath[1];
-//            String id = allPath[1];
-//            String tabel = allPath[2];
             String web = exchange.getRequestURI().getPath();
             String[] allPath = Parse.path(web);
             String path = allPath[1];
@@ -31,25 +31,61 @@ public class Handler {
 
             if ("GET".equals(exchange.getRequestMethod())){
                 OutputStream outputStream = exchange.getResponseBody();
+                ConnectSQL isiTabel = new ConnectSQL();
                 if (path.equals("users")){
-                    ConnectSQL isiTabel = new ConnectSQL();
+//                    System.out.println(allPath.length);
                     if (allPath.length == 2){
-                        pesan = isiTabel.selectAllUser();
+                        pesan = isiTabel.selectAll(path);
                     } else if (allPath.length == 3) {
-                        pesan = isiTabel.selectId(allPath[2]);
+                        pesan = isiTabel.selectId(path, allPath[2]);
                     } else if (allPath.length == 4) {
-                        pesan = isiTabel.selectId(allPath[2]);
+                        pesan = isiTabel.selectId(path, allPath[2]);
                     }
                 } else if (path.equals("orders")) {
-                        pesan = "orders";
+//                    System.out.println(allPath.length);
+                    if (allPath.length == 2){
+                        pesan = isiTabel.selectAll(path);
+                    } else if (allPath.length == 3) {
+                        pesan = isiTabel.selectId(path, allPath[2]);
+                    } else if (allPath.length == 4) {
+                        pesan = isiTabel.selectId(path, allPath[2]);
+                    }
                 } else if (path.equals("reviews")) {
-                        pesan = "reviews";
+//                    System.out.println(allPath.length);
+                    if (allPath.length == 2){
+                        pesan = isiTabel.selectAll(path);
+                    } else if (allPath.length == 3) {
+                        pesan = isiTabel.selectOrdersId(path, allPath[2]);
+                    } else if (allPath.length == 4) {
+                        pesan = isiTabel.selectId(path, allPath[2]);
+                    }
                 }else if (path.equals("detailOrders")) {
-                        pesan = "detailOrders";
+//                    System.out.println(allPath.length);
+                    if (allPath.length == 2){
+                        pesan = isiTabel.selectAll(path);
+                    } else if (allPath.length == 3) {
+                        pesan = isiTabel.selectOrdersId(path, allPath[2]);
+                    } else if (allPath.length == 4) {
+                        pesan = isiTabel.selectId(path, allPath[2]);
+                    }
                 }else if (path.equals("addresses")) {
-                        pesan = "addressses";
+//                    System.out.println(allPath.length);
+                    if (allPath.length == 2){
+                        pesan = isiTabel.selectAll(path);
+                    } else if (allPath.length == 3) {
+                        pesan = isiTabel.selectIdUsers(path, allPath[2]);
+                    } else if (allPath.length == 4) {
+                        pesan = isiTabel.selectId(path, allPath[2]);
+                    }
                 } else if (path.equals("products")) {
-                        pesan = "products";
+//                    System.out.println(allPath.length);
+                    if (allPath.length == 2){
+                        pesan = isiTabel.selectAll(path);
+                    } else if (allPath.length == 3) {
+                        pesan = isiTabel.selectId(path, allPath[2]);
+                    } else if (allPath.length == 4) {
+                        pesan = isiTabel.selectId(path, allPath[2]);
+                    }
                 } else {
                         pesan = "Table Not Found";
                         exchange.sendResponseHeaders(404, pesan.length());
@@ -77,7 +113,8 @@ public class Handler {
                 if (path.equals("users")) {
                     users user = new users();
                     if (user.parseJson(json) != 1) {
-                        pesan = "berhasil";
+                        user.insert();
+                        pesan = "data berhasil dimasukkan";
                         exchange.sendResponseHeaders(200, pesan.length());
                         outputStream.write(pesan.getBytes());
                         outputStream.flush();
@@ -92,7 +129,8 @@ public class Handler {
                 } else if (path.equals("products")) {
                     products product = new products();
                     if (product.parseJson(json) != 1) {
-                        pesan = "berhasil";
+                        product.insert();
+                        pesan = "data berhasil dimasukkan";
                         exchange.sendResponseHeaders(200, pesan.length());
                         outputStream.write(pesan.getBytes());
                         outputStream.flush();
@@ -107,7 +145,56 @@ public class Handler {
                 } else if (path.equals("reviews")) {
                     reviews review = new reviews();
                     if (review.parseJson(json) != 1){
-                        pesan = "berhasil";
+                        review.insert();
+                        pesan = "data berhasil dimasukkan";
+                        exchange.sendResponseHeaders(200, pesan.length());
+                        outputStream.write(pesan.getBytes());
+                        outputStream.flush();
+                        outputStream.close();
+                    } else {
+                        pesan = "data kurang";
+                        exchange.sendResponseHeaders(401, pesan.length());
+                        outputStream.write(pesan.getBytes());
+                        outputStream.flush();
+                        outputStream.close();
+                    }
+                } else if (path.equals("addresses")) {
+                    addresses address = new addresses();
+                    if (address.parseJson(json) != 1){
+                        address.insert();
+                        pesan = "data berhasil dimasukkan";
+                        exchange.sendResponseHeaders(200, pesan.length());
+                        outputStream.write(pesan.getBytes());
+                        outputStream.flush();
+                        outputStream.close();
+                    } else {
+                        pesan = "data kurang";
+                        exchange.sendResponseHeaders(401, pesan.length());
+                        outputStream.write(pesan.getBytes());
+                        outputStream.flush();
+                        outputStream.close();
+                    }
+                } else if (path.equals("orders")) {
+                    orders order = new orders();
+                    if (order.parseJson(json) != 1){
+                        order.insert();
+                        pesan = "data berhasil dimasukkan";
+                        exchange.sendResponseHeaders(200, pesan.length());
+                        outputStream.write(pesan.getBytes());
+                        outputStream.flush();
+                        outputStream.close();
+                    } else {
+                        pesan = "data kurang";
+                        exchange.sendResponseHeaders(401, pesan.length());
+                        outputStream.write(pesan.getBytes());
+                        outputStream.flush();
+                        outputStream.close();
+                    }
+                } else if (path.equals("detailOrders")) {
+                    detailOrders detail = new detailOrders();
+                    if (detail.parseJson(json) != 1){
+                        detail.insert();
+                        pesan = "data berhasil dimasukkan";
                         exchange.sendResponseHeaders(200, pesan.length());
                         outputStream.write(pesan.getBytes());
                         outputStream.flush();

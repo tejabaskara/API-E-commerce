@@ -48,11 +48,14 @@ public class orders {
             total = obj.getInt("total");
             discount = obj.getInt("discount");
             isPaid = obj.getString("is_paid");
-            ConnectSQL inputDB = new ConnectSQL();
-            inputDB.inputOrders(id, buyer, note, total, discount, isPaid);
         }catch (Exception exception){
             return 1;
         }
         return  0;
+    }
+
+    public void insert(){
+        ConnectSQL inputDB = new ConnectSQL();
+        inputDB.inputOrders(id, buyer, note, total, discount, isPaid);
     }
 }

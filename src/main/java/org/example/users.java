@@ -43,11 +43,14 @@ public class users {
            email = obj.getString("email");
            phoneNumber = obj.getString("phone_number");
            type = obj.getString("type");
-           ConnectSQL inputDB = new ConnectSQL();
-           inputDB.inputUsers(id, firstName, lastName, email, phoneNumber, type);
        }catch (Exception e){
            return 1;
        }
        return 0;
+   }
+
+   public void insert(){
+       ConnectSQL inputDB = new ConnectSQL();
+       inputDB.inputUsers(id, firstName, lastName, email, phoneNumber, type);
    }
 }

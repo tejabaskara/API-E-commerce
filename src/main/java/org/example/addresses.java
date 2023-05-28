@@ -49,12 +49,15 @@ public class addresses {
             province = obj.getString("province");
             city = obj.getString("city");
             postcode = obj.getString("postcode");
-            ConnectSQL inputDB = new ConnectSQL();
-            inputDB.inputAddresses(users, type, line1, line2, province, city, postcode);
         }catch (Exception e){
             return 1;
         }
         return 0;
+    }
+
+    public void insert(){
+        ConnectSQL inputDB = new ConnectSQL();
+        inputDB.inputAddresses(users, type, line1, line2, province, city, postcode);
     }
 
 }
