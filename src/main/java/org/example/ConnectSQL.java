@@ -88,7 +88,7 @@ public class ConnectSQL {
         }
     }
     public void inputOrders(int id, int buyer, int note, int total, int discount, String isPaid) {
-        String sql = "INSERT INTO order(id, buyer, note, total, discount, is_paid) VALUES(?,?,?)";
+        String sql = "INSERT INTO order(id, buyer, note, total, discount, is_paid) VALUES(?,?,?,?,?,?)";
         try{
             Connection conn = this.connect();
             PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -98,6 +98,21 @@ public class ConnectSQL {
             pstmt.setInt(4, total);
             pstmt.setInt(5, discount);
             pstmt.setString(6, isPaid);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void inputOrdersDetails(int order, int product, int quantity, int price) {
+        String sql = "INSERT INTO order_details(order,product,quantity,price) VALUES(?,?,?,?)";
+        try{
+            Connection conn = this.connect();
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, order);
+            pstmt.setInt(2, product );
+            pstmt.setInt(3, quantity );
+            pstmt.setInt(4, price);
             pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());

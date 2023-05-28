@@ -32,6 +32,8 @@ public class detailOrders {
             product = obj.getInt("product");
             quantity = obj.getInt("quantity");
             price = obj.getInt("price");
+            ConnectSQL inputDB = new ConnectSQL();
+            inputDB.inputOrdersDetails(order, product, quantity, price);
         }catch (Exception exception){
             return 1;
         }
