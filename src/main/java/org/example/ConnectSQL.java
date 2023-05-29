@@ -264,20 +264,78 @@ public class ConnectSQL {
         return jsonKirim;
     }
 
+    
+    
+    
+    /*
+    untuk query post dengan tabel kedua dan juga ID
+     */
     public String selectTableUser(String tabel, String id, String tabel1){
-        String sql = "SELECT * FROM " + tabel1 + "WHERE"+ tabel + " = "+ id;
+        String sql = "SELECT * FROM users WHERE id = "+ id;
         ArrayList<String> hasil = new ArrayList<String>();
 
         try {
             Connection connect = this.connect();
             Statement stmt  = connect.createStatement();
             ResultSet rs    = stmt.executeQuery(sql);
+            users user = new users();
+            user.setUser(rs.getInt("id"), rs.getString("first_name"), rs.getString("last_name"), rs.getString("email") , rs.getString("phone_number"), rs.getString("type"));
 
-            while (rs.next()) {
-                hasil.add(JsonStructure.addresses(rs.getInt("id"), rs.getString("type"), rs.getString("line1"), rs.getString("line2") , rs.getString("city"), rs.getString("province"), rs.getString("postcode") ));
+            if (tabel1.equals("addresses")){
+                String sqlFind = "SELECT * FROM addresses WHERE users = "+ id;
+                Connection connectFind = this.connect();
+                Statement stmtFind  = connect.createStatement();
+                ResultSet rsFind    = stmt.executeQuery(sql);
+                while (rs.next()) {
+                    hasil.add(JsonStructure.addresses(rs.getInt("id"), rs.getString("type"), rs.getString("line1"), rs.getString("line2") , rs.getString("city"), rs.getString("province"), rs.getString("postcode") ));
+                }
+            } else if (tabel1.equals("products")) {
+                String sqlFind = "SELECT * FROM products WHERE seller = "+ id;
+                Connection connectFind = this.connect();
+                Statement stmtFind  = connect.createStatement();
+                ResultSet rsFind    = stmt.executeQuery(sql);
+                while (rs.next()) {
+                    hasil.add(JsonStructure.product(rs.getInt("id"), rs.getInt("seller"), rs.getString("title"), rs.getString("description") , rs.getString("price"), rs.getInt("stock")));
+                }
+            } else if (tabel1.equals("order")) {
+                String sqlFind = "SELECT * FROM orders WHERE buyer = "+ id;
+                Connection connectFind = this.connect();
+                Statement stmtFind  = connect.createStatement();
+                ResultSet rsFind    = stmt.executeQuery(sql);
+                while (rs.next()) {
+                    hasil.add(JsonStructure.orders(rs.getInt("id"), rs.getInt("buyer"), rs.getInt("note"), rs.getInt("total") , rs.getInt("discount"), rs.getString("is_paid")));
+                }
+            } else if (tabel1.equals("reviews")) {
+                String sqlFind = "SELECT * FROM orders WHERE buyer = "+ id;
+                Connection connectFind = this.connect();
+                Statement stmtFind  = connect.createStatement();
+                ResultSet rsFind    = stmt.executeQuery(sql);
+                orders order = new orders();
+                order.setOrder(rs.getInt("id"), rs.getInt("buyer"), rs.getInt("note"), rs.getInt("total") , rs.getInt("discount"), rs.getString("is_paid"));
+
+                String sqlReviews = "SELECT * FROM reviews WHERE order_id = "+ order.getId();
+                Connection connectReview = this.connect();
+                Statement stmtReview  = connect.createStatement();
+                ResultSet rsReview    = stmt.executeQuery(sql);
+                while (rs.next()) {
+                    hasil.add(JsonStructure.reviews(rs.getInt("order_id"), rs.getInt("star"), rs.getString("description")));
+                }
+            } else if (tabel1.equals("ordersDetail")) {
+                String sqlFind = "SELECT * FROM orders WHERE buyer = "+ id;
+                Connection connectFind = this.connect();
+                Statement stmtFind  = connect.createStatement();
+                ResultSet rsFind    = stmt.executeQuery(sql);
+                orders order = new orders();
+                order.setOrder(rs.getInt("id"), rs.getInt("buyer"), rs.getInt("note"), rs.getInt("total") , rs.getInt("discount"), rs.getString("is_paid"));
+
+                String sqlReviews = "SELECT * FROM order_details WHERE order_id = "+ order.getId();
+                Connection connectReview = this.connect();
+                Statement stmtReview  = connect.createStatement();
+                ResultSet rsReview    = stmt.executeQuery(sql);
+                while (rs.next()) {
+                    hasil.add(JsonStructure.orderDetail(rs.getInt("order_id"), rs.getInt("product"), rs.getInt("quantity"), rs.getInt("price")));
+                }
             }
-
-
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }

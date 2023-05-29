@@ -34,7 +34,17 @@ public class users {
        return type;
    }
 
-   public int parseJson(String json){
+
+    public void setUser(int id, String firstName, String lastName, String email, String phoneNumber, String type) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.type = type;
+    }
+
+    public int parseJson(String json){
        try {
            JSONObject obj = new JSONObject(json);
            id = obj.getInt("id");

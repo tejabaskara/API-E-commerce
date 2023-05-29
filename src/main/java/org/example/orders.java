@@ -39,6 +39,15 @@ public class orders {
         return isPaid;
     }
 
+    public void setOrder(int id, int buyer, int discount, int note, int total, String isPaid){
+        this.id = id;
+        this.buyer = buyer;
+        this.discount = discount;
+        this.note = note;
+        this.total = total;
+        this.isPaid = isPaid;
+    }
+
     public int parseJson(String json){
         try {
             JSONObject obj = new JSONObject(json);

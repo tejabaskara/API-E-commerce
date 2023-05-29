@@ -33,13 +33,16 @@ public class Handler {
                 OutputStream outputStream = exchange.getResponseBody();
                 ConnectSQL isiTabel = new ConnectSQL();
                 if (path.equals("users")){
-//                    System.out.println(allPath.length);
+                    System.out.println(allPath.length);
+                    System.out.println(allPath[1]);
+                    System.out.println(allPath[2]);
+                    System.out.println(allPath[3]);
                     if (allPath.length == 2){
                         pesan = isiTabel.selectAll(path);
                     } else if (allPath.length == 3) {
                         pesan = isiTabel.selectId(path, allPath[2]);
                     } else if (allPath.length == 4) {
-                        pesan = isiTabel.selectId(path, allPath[2]);
+                        pesan = isiTabel.selectTableUser(path, allPath[2], allPath[3]);
                     }
                 } else if (path.equals("orders")) {
 //                    System.out.println(allPath.length);
