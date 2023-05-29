@@ -42,4 +42,9 @@ public class detailOrders {
         ConnectSQL inputDB = new ConnectSQL();
         inputDB.inputOrdersDetails(order, product, quantity, price);
     }
+
+    public void update(String idGanti){
+        ConnectSQL inputDB = new ConnectSQL();
+        inputDB.updateOrderDetails(order, product, quantity, price, idGanti);
+    }
 }

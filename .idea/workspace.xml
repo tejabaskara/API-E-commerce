@@ -10,12 +10,14 @@
     <list default="true" id="94da0dfd-6e2f-451f-8817-068c6ca87e7c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DB_Api.db" beforeDir="false" afterPath="$PROJECT_DIR$/DB_Api.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DB_Api.sqbpro" beforeDir="false" afterPath="$PROJECT_DIR$/DB_Api.sqbpro" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ConnectSQL.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/ConnectSQL.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Handler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Handler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Parse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Parse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Server.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/addresses.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/addresses.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/detailOrders.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/detailOrders.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/orders.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/orders.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/products.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/products.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/reviews.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/reviews.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/users.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/users.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

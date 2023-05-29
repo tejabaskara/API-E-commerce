@@ -308,12 +308,109 @@ public class Handler {
                 br.close();
                 isr.close();
                 String json = buf.toString();
-                pesan = json;
-                if ()
-                exchange.sendResponseHeaders(200, pesan.length());
-                outputStream.write(pesan.getBytes());
-                outputStream.flush();
-                outputStream.close();
+                if (path.equals("users")) {
+                    users user = new users();
+                    if (user.parseJson(json) != 1) {
+                        user.update(allPath[2]);
+                        pesan = "Data berhasil diperbarui";
+                        exchange.sendResponseHeaders(200, pesan.length());
+                        outputStream.write(pesan.getBytes());
+                        outputStream.flush();
+                        outputStream.close();
+                    } else {
+                        pesan = "data kurang";
+                        exchange.sendResponseHeaders(401, pesan.length());
+                        outputStream.write(pesan.getBytes());
+                        outputStream.flush();
+                        outputStream.close();
+                    }
+                } else if (path.equals("products")) {
+                    products product = new products();
+                    if (product.parseJson(json) != 1) {
+                        product.update(allPath[2]);
+                        pesan = "Data berhasil dimasukkan";
+                        exchange.sendResponseHeaders(200, pesan.length());
+                        outputStream.write(pesan.getBytes());
+                        outputStream.flush();
+                        outputStream.close();
+                    } else {
+                        pesan = "Silahkan mengecek data kembali";
+                        exchange.sendResponseHeaders(401, pesan.length());
+                        outputStream.write(pesan.getBytes());
+                        outputStream.flush();
+                        outputStream.close();
+                    }
+                } else if (path.equals("reviews")) {
+                    reviews review = new reviews();
+                    if (review.parseJson(json) != 1){
+                        review.update(allPath[2]);
+                        pesan = "Data berhasil dimasukkan";
+                        exchange.sendResponseHeaders(200, pesan.length());
+                        outputStream.write(pesan.getBytes());
+                        outputStream.flush();
+                        outputStream.close();
+                    } else {
+                        pesan = "Silahkan mengecek data kembali";
+                        exchange.sendResponseHeaders(401, pesan.length());
+                        outputStream.write(pesan.getBytes());
+                        outputStream.flush();
+                        outputStream.close();
+                    }
+                } else if (path.equals("addresses")) {
+                    addresses address = new addresses();
+                    if (address.parseJson(json) != 1){
+                        address.update(allPath[2]);
+                        pesan = "Data berhasil dimasukkan";
+                        exchange.sendResponseHeaders(200, pesan.length());
+                        outputStream.write(pesan.getBytes());
+                        outputStream.flush();
+                        outputStream.close();
+                    } else {
+                        pesan = "Silahkan mengecek data kembali";
+                        exchange.sendResponseHeaders(401, pesan.length());
+                        outputStream.write(pesan.getBytes());
+                        outputStream.flush();
+                        outputStream.close();
+                    }
+                } else if (path.equals("orders")) {
+                    orders order = new orders();
+                    if (order.parseJson(json) != 1){
+                        order.update(allPath[2]);
+                        pesan = "Data berhasil dimasukkan";
+                        exchange.sendResponseHeaders(200, pesan.length());
+                        outputStream.write(pesan.getBytes());
+                        outputStream.flush();
+                        outputStream.close();
+                    } else {
+                        pesan = "Silahkan mengecek data kembali";
+                        exchange.sendResponseHeaders(401, pesan.length());
+                        outputStream.write(pesan.getBytes());
+                        outputStream.flush();
+                        outputStream.close();
+                    }
+                } else if (path.equals("order_details")) {
+                    detailOrders detail = new detailOrders();
+                    if (detail.parseJson(json) != 1){
+                        detail.update(allPath[2]);
+                        pesan = "Data berhasil dimasukkan";
+                        exchange.sendResponseHeaders(200, pesan.length());
+                        outputStream.write(pesan.getBytes());
+                        outputStream.flush();
+                        outputStream.close();
+                    } else {
+                        pesan = "Silahkan mengecek data kembali";
+                        exchange.sendResponseHeaders(401, pesan.length());
+                        outputStream.write(pesan.getBytes());
+                        outputStream.flush();
+                        outputStream.close();
+                    }
+                } else {
+                    pesan = "Wrong Path";
+                    exchange.sendResponseHeaders(404, pesan.length());
+                    outputStream.write(pesan.getBytes());
+                    outputStream.flush();
+                    outputStream.close();
+                }
             } else if ("DELETE".equals(exchange.getRequestMethod())) {
                 OutputStream outputStream = exchange.getResponseBody();
                 ConnectSQL hapusTabel = new ConnectSQL();

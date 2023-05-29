@@ -64,4 +64,10 @@ public class users {
        ConnectSQL inputDB = new ConnectSQL();
        inputDB.inputUsers(id, firstName, lastName, email, phoneNumber, type);
    }
+
+   public void  update(String idGanti){
+       ConnectSQL updateDB = new ConnectSQL();
+       updateDB.updateUser(id, firstName, lastName,email, phoneNumber,type, idGanti);
+   }
+
 }

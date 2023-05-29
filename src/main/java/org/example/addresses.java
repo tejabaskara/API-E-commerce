@@ -70,4 +70,9 @@ public class addresses {
         inputDB.inputAddresses(users, type, line1, line2, province, city, postcode);
     }
 
+    public void update(String idGanti){
+        ConnectSQL inputDB = new ConnectSQL();
+        inputDB.updateAddresses(users, type, line1,line2, city, province,postcode,idGanti);
+    }
+
 }

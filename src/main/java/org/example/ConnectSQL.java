@@ -426,4 +426,77 @@ public class ConnectSQL {
             System.out.println(e.getMessage());
         }
     }
+
+
+
+
+    /*
+    UPDATE QUERY UNTUK METHODE PUT
+     */
+    public void updateUser(int id, String firstName, String lastName, String email, String phoneNumber, String type, String idUbah) {
+        String sql = "UPDATE users SET id = " + id + " ,first_name = \"" + firstName + "\" ,last_name = \"" + lastName + "\" ,email = \"" + email +
+                "\" ,phone_number = \"" + phoneNumber + "\" ,type = \"" + type + "\" WHERE id = " + idUbah;
+        try {
+            Connection conn = this.connect();
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void updateProducts(int id, int seller, String title, String description, String price, int stock, String idGanti) {
+        String sql = "UPDATE products SET id = " + id + " ,seller = \"" + seller + "\" ,title = \"" + title + "\" ,description = \"" + description +
+                "\" ,price = \"" + price + "\" ,stock = \"" + stock + "\" WHERE id = " + idGanti;
+        try {
+            Connection conn = this.connect();
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void updateOrders(int id, int buyer, int note, int total, int discount, String isPaid, String idGanti) {
+        String sql = "UPDATE orders SET id = " + id + " ,buyer = \"" + buyer + "\" ,note = \"" + note + "\" ,total = \"" + total +
+                "\" ,discount = \"" + discount + "\" ,is_paid = \"" + isPaid + "\" WHERE id = " + idGanti;
+        try {
+            Connection conn = this.connect();
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    public void updateAddresses(int users, String type, String line1, String line2, String city, String province, String postcode, String idGanti) {
+        String sql = "UPDATE addresses SET users = " + users + " ,type = \"" + type + "\" ,line1 = \"" + line1 + "\" ,line2 = \"" + line2 +
+                "\" ,city = \"" + city + "\" ,province = \"" + province + "\" ,postcode = \"" + postcode + "\" WHERE users = " + idGanti;
+        try {
+            Connection conn = this.connect();
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    public void updateReviews(int orderId, int star, String description, String idGanti) {
+        String sql = "UPDATE reviews SET order_id = " + orderId + " ,star = \"" + star + "\" ,description = \"" + description + "\" WHERE order_id = " + idGanti;
+        try {
+            Connection conn = this.connect();
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    public void updateOrderDetails(int orderId, int product, int quantity, int price, String idGanti) {
+        String sql = "UPDATE order_details SET order_id = " + orderId + " ,product = \"" + product + "\" ,quantity = \"" + quantity + "\" ,price = \"" + price + "\" WHERE order_id = " + idGanti;
+        try {
+            Connection conn = this.connect();
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }

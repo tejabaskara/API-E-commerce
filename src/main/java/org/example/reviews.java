@@ -41,4 +41,9 @@ public class reviews {
         ConnectSQL inputDB = new ConnectSQL();
         inputDB.inputReviews(order, star,description);
     }
+
+    public void update(String idGanti){
+        ConnectSQL inputDB = new ConnectSQL();
+        inputDB.updateReviews(order, star, description, idGanti);
+    }
 }

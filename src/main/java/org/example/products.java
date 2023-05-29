@@ -54,5 +54,10 @@ public class products {
         ConnectSQL inputDB = new ConnectSQL();
         inputDB.inputProducts(id, seller, title, description, price, stock);
     }
+
+    public void update(String idGanti){
+        ConnectSQL inputDB = new ConnectSQL();
+        inputDB.updateProducts(id, seller, title,description, price, stock,idGanti);
+    }
 }
 

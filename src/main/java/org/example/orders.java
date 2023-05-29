@@ -67,4 +67,8 @@ public class orders {
         ConnectSQL inputDB = new ConnectSQL();
         inputDB.inputOrders(id, buyer, note, total, discount, isPaid);
     }
+    public void update(String idGanti){
+        ConnectSQL updateDB = new ConnectSQL();
+        updateDB.updateOrders(id, buyer, note, total,discount,isPaid,idGanti);
+    }
 }
