@@ -199,7 +199,7 @@ public class Handler {
                         outputStream.close();
                     } else {
                         pesan = "data kurang";
-                        exchange.sendResponseHeaders(401, pesan.length());
+                        exchange.sendResponseHeaders(400, pesan.length());
                         outputStream.write(pesan.getBytes());
                         outputStream.flush();
                         outputStream.close();
@@ -215,7 +215,7 @@ public class Handler {
                         outputStream.close();
                     } else {
                         pesan = "Silahkan mengecek data kembali";
-                        exchange.sendResponseHeaders(401, pesan.length());
+                        exchange.sendResponseHeaders(400, pesan.length());
                         outputStream.write(pesan.getBytes());
                         outputStream.flush();
                         outputStream.close();
@@ -231,7 +231,7 @@ public class Handler {
                         outputStream.close();
                     } else {
                         pesan = "Silahkan mengecek data kembali";
-                        exchange.sendResponseHeaders(401, pesan.length());
+                        exchange.sendResponseHeaders(400, pesan.length());
                         outputStream.write(pesan.getBytes());
                         outputStream.flush();
                         outputStream.close();
@@ -247,7 +247,7 @@ public class Handler {
                         outputStream.close();
                     } else {
                         pesan = "Silahkan mengecek data kembali";
-                        exchange.sendResponseHeaders(401, pesan.length());
+                        exchange.sendResponseHeaders(400, pesan.length());
                         outputStream.write(pesan.getBytes());
                         outputStream.flush();
                         outputStream.close();
@@ -263,7 +263,7 @@ public class Handler {
                         outputStream.close();
                     } else {
                         pesan = "Silahkan mengecek data kembali";
-                        exchange.sendResponseHeaders(401, pesan.length());
+                        exchange.sendResponseHeaders(400, pesan.length());
                         outputStream.write(pesan.getBytes());
                         outputStream.flush();
                         outputStream.close();
@@ -279,7 +279,7 @@ public class Handler {
                         outputStream.close();
                     } else {
                         pesan = "Silahkan mengecek data kembali";
-                        exchange.sendResponseHeaders(401, pesan.length());
+                        exchange.sendResponseHeaders(400, pesan.length());
                         outputStream.write(pesan.getBytes());
                         outputStream.flush();
                         outputStream.close();
@@ -314,7 +314,7 @@ public class Handler {
                         outputStream.close();
                     } else {
                         pesan = "data kurang";
-                        exchange.sendResponseHeaders(401, pesan.length());
+                        exchange.sendResponseHeaders(400, pesan.length());
                         outputStream.write(pesan.getBytes());
                         outputStream.flush();
                         outputStream.close();
@@ -330,7 +330,7 @@ public class Handler {
                         outputStream.close();
                     } else {
                         pesan = "Silahkan mengecek data kembali";
-                        exchange.sendResponseHeaders(401, pesan.length());
+                        exchange.sendResponseHeaders(400, pesan.length());
                         outputStream.write(pesan.getBytes());
                         outputStream.flush();
                         outputStream.close();
@@ -346,7 +346,7 @@ public class Handler {
                         outputStream.close();
                     } else {
                         pesan = "Silahkan mengecek data kembali";
-                        exchange.sendResponseHeaders(401, pesan.length());
+                        exchange.sendResponseHeaders(400, pesan.length());
                         outputStream.write(pesan.getBytes());
                         outputStream.flush();
                         outputStream.close();
@@ -362,7 +362,7 @@ public class Handler {
                         outputStream.close();
                     } else {
                         pesan = "Silahkan mengecek data kembali";
-                        exchange.sendResponseHeaders(401, pesan.length());
+                        exchange.sendResponseHeaders(400, pesan.length());
                         outputStream.write(pesan.getBytes());
                         outputStream.flush();
                         outputStream.close();
@@ -378,7 +378,7 @@ public class Handler {
                         outputStream.close();
                     } else {
                         pesan = "Silahkan mengecek data kembali";
-                        exchange.sendResponseHeaders(401, pesan.length());
+                        exchange.sendResponseHeaders(400, pesan.length());
                         outputStream.write(pesan.getBytes());
                         outputStream.flush();
                         outputStream.close();
@@ -394,7 +394,7 @@ public class Handler {
                         outputStream.close();
                     } else {
                         pesan = "Silahkan mengecek data kembali";
-                        exchange.sendResponseHeaders(401, pesan.length());
+                        exchange.sendResponseHeaders(400, pesan.length());
                         outputStream.write(pesan.getBytes());
                         outputStream.flush();
                         outputStream.close();
