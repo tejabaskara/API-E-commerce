@@ -18,21 +18,7 @@ public class users {
    public Integer id(){
        return  id;
    }
-   public String firstName(){
-       return firstName;
-   }
-   public String lastName(){
-       return lastName;
-   }
-   public String email(){
-       return email;
-   }
-   public String phoneNumber(){
-       return phoneNumber;
-   }
-   public String type(){
-       return type;
-   }
+
 
 
     public void setUser(int id, String firstName, String lastName, String email, String phoneNumber, String type) {

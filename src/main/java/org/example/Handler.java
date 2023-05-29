@@ -29,7 +29,6 @@ public class Handler {
             String[] allPath = Parse.path(web);
             String path = allPath[1];
             String pesan = "";
-            System.out.println(exchange.getRequestMethod());
 
             if ("GET".equals(exchange.getRequestMethod())){
                 OutputStream outputStream = exchange.getResponseBody();
@@ -37,10 +36,6 @@ public class Handler {
                 if (Parse.checkFilter(allWeb) == 1){
                     String allQuery = exchange.getRequestURI().getQuery();
                     String[] query = Parse.filter(allQuery);
-//                    System.out.println(allQuery);
-//                    for (int i=0; i < query.length; i++){
-//                        System.out.println(query[i]);
-//                    }
                     if (query.length == 3){
                         if (path.equals("users")){
                             pesan = isiTabel.queryAllCond(path, "id", query[0], query[1], query[2]);

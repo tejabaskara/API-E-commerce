@@ -13,17 +13,6 @@ public class reviews {
     private int star;
     private String description;
 
-    public int getOrder() {
-        return order;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public int getStar() {
-        return star;
-    }
 
     public int parseJson(String json){
         try {

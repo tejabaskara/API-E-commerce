@@ -11,29 +11,6 @@ public class products {
     private String price;
     private int stock;
 
-    public int getId() {
-        return id;
-    }
-
-    public int getSeller() {
-        return seller;
-    }
-
-    public int getStock() {
-        return stock;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public String getPrice() {
-        return price;
-    }
-
-    public String getTitle() {
-        return title;
-    }
 
     public int parseJson(String json){
         try {

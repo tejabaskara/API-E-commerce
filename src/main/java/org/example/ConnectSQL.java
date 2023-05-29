@@ -16,7 +16,7 @@ public class ConnectSQL {
         String url = "jdbc:sqlite:" + rootPath + "/DB_Api.db";
         try{
             connection = DriverManager.getConnection(url);
-            System.out.println("connection ok");
+//            System.out.println("connection ok");
         }catch (SQLException e){
             System.out.println(e.getMessage());
         }

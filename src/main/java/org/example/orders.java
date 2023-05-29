@@ -19,25 +19,6 @@ public class orders {
         return id;
     }
 
-    public int getBuyer() {
-        return buyer;
-    }
-
-    public int getDiscount() {
-        return discount;
-    }
-
-    public int getNote() {
-        return note;
-    }
-
-    public int getTotal() {
-        return total;
-    }
-
-    public String getIsPaid() {
-        return isPaid;
-    }
 
     public void setOrder(int id, int buyer, int discount, int note, int total, String isPaid){
         this.id = id;
