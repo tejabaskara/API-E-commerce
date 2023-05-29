@@ -42,7 +42,9 @@ public class users {
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.type = type;
+
     }
+
 
     public int parseJson(String json){
        try {
@@ -58,7 +60,6 @@ public class users {
        }
        return 0;
    }
-
    public void insert(){
        ConnectSQL inputDB = new ConnectSQL();
        inputDB.inputUsers(id, firstName, lastName, email, phoneNumber, type);

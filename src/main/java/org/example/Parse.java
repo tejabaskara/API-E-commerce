@@ -19,5 +19,9 @@ public class Parse {
         return hasil;
     }
 
+    public static String[] filterCondition (String string){
+        String[] hasil = string.split("=");
+        return hasil;
+    }
 
 }

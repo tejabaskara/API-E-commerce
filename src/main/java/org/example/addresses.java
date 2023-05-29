@@ -42,7 +42,7 @@ public class addresses {
     public int parseJson(String json){
         try {
             JSONObject obj = new JSONObject(json);
-            users = obj.getInt("id");
+            users = obj.getInt("users");
             type = obj.getString("type");
             line1 = obj.getString("line1");
             line2 = obj.getString("line2");
@@ -53,6 +53,16 @@ public class addresses {
             return 1;
         }
         return 0;
+    }
+
+    public void setAddresses (int users, String type, String line1, String line2, String province, String city, String postcode){
+        this.users = users;
+        this.type = type;
+        this.line1 = line1;
+        this.line2 = line2;
+        this.province = province;
+        this.city = city;
+        this.postcode = postcode;
     }
 
     public void insert(){

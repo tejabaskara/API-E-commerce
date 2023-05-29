@@ -8,7 +8,7 @@ import java.util.concurrent.Executors;
 
 public class Server {
     public static void server() throws IOException {
-        HttpServer httpServer = HttpServer.create(new InetSocketAddress("localhost", 8030), 0);
+        HttpServer httpServer = HttpServer.create(new InetSocketAddress("localhost", 8065), 0);
         httpServer.createContext("/", new Handler.handler()  );
         httpServer.setExecutor(Executors.newSingleThreadExecutor());
         httpServer.start();
