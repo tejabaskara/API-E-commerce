@@ -3,6 +3,10 @@
 ## PENJELASAN
 merupakan API untuk melakukan perubahan di dalam database untuk e-commerce. API ini dapat menghandle methode PUT, GET, DELETE, dan juga POST. 
 
+##API KEY
+API KEY pada API ini adalah "x-api-key"
+VALUE pada API ini adalah "niceguy_bmljZWd1eq"
+
 ## CARA MENGGUNAKAN PROGRAM
 untuk dapat menggunakan program ini pada terminal anda, anda diharuskan untuk memiliki program-program berikut pada perangkat anda:
 1. [GIT](https://git-scm.com/downloads)
