@@ -140,27 +140,27 @@ public class ConnectSQL {
 
             if (tabel.equals("users")){
                 while (rs.next()) {
-                    hasil.add(JsonStructure.user(rs.getInt("id"), rs.getString("first_name"), rs.getString("last_name"), rs.getString("email") , rs.getString("phone_number"), rs.getString("type") ));
+                    hasil.add("\t{\n" + JsonStructure.user(rs.getInt("id"), rs.getString("first_name"), rs.getString("last_name"), rs.getString("email") , rs.getString("phone_number"), rs.getString("type"))+ "\n\t}");
                 }
             } else if (tabel.equals("addresses")) {
                 while (rs.next()) {
-                    hasil.add(JsonStructure.addresses(rs.getInt("users"), rs.getString("type"), rs.getString("line1"), rs.getString("line2") , rs.getString("city"), rs.getString("province"), rs.getString("postcode") ));
+                    hasil.add("\t{\n" + JsonStructure.addresses(rs.getInt("users"), rs.getString("type"), rs.getString("line1"), rs.getString("line2") , rs.getString("city"), rs.getString("province"), rs.getString("postcode")) + "\n\t}");
                 }
             } else if (tabel.equals("products")) {
                 while (rs.next()) {
-                    hasil.add(JsonStructure.product(rs.getInt("id"), rs.getInt("seller"), rs.getString("title"), rs.getString("description") , rs.getString("price"), rs.getInt("stock")));
+                    hasil.add("\t{\n" + JsonStructure.product(rs.getInt("id"), rs.getInt("seller"), rs.getString("title"), rs.getString("description") , rs.getString("price"), rs.getInt("stock")) + "\n\t}");
                 }
             } else if (tabel.equals("orders")) {
                 while (rs.next()) {
-                    hasil.add(JsonStructure.orders(rs.getInt("id"), rs.getInt("buyer"), rs.getInt("note"), rs.getInt("total") , rs.getInt("discount"), rs.getString("is_paid")));
+                    hasil.add("\t{\n" + JsonStructure.orders(rs.getInt("id"), rs.getInt("buyer"), rs.getInt("note"), rs.getInt("total") , rs.getInt("discount"), rs.getString("is_paid")) + "\n\t}");
                 }
             } else if (tabel.equals("orders_details")) {
                 while (rs.next()) {
-                    hasil.add(JsonStructure.orderDetail(rs.getInt("order_id"), rs.getInt("product"), rs.getInt("quantity"), rs.getInt("price")));
+                    hasil.add("\t{\n" + JsonStructure.orderDetail(rs.getInt("order_id"), rs.getInt("product"), rs.getInt("quantity"), rs.getInt("price")) + "\n\t}");
                 }
             } else if (tabel.equals("reviews")) {
                 while (rs.next()) {
-                    hasil.add(JsonStructure.reviews(rs.getInt("order_id"), rs.getInt("star"), rs.getString("description")));
+                    hasil.add("\t{\n" + JsonStructure.reviews(rs.getInt("order_id"), rs.getInt("star"), rs.getString("description")) + "\n\t}");
                 }
             }
         } catch (SQLException e) {
@@ -184,19 +184,17 @@ public class ConnectSQL {
             Statement stmt  = connect.createStatement();
             ResultSet rs    = stmt.executeQuery(sql);
 
-
-            // loop through the result set
             if (tabel.equals("users")){
                 while (rs.next()) {
-                    hasil.add(JsonStructure.user(rs.getInt("id"), rs.getString("first_name"), rs.getString("last_name"), rs.getString("email") , rs.getString("phone_number"), rs.getString("type") ));
+                    hasil.add("\t{\n" + JsonStructure.user(rs.getInt("id"), rs.getString("first_name"), rs.getString("last_name"), rs.getString("email") , rs.getString("phone_number"), rs.getString("type")) + "\n\t}");
                 }
             } else if (tabel.equals("products")) {
                 while (rs.next()) {
-                    hasil.add(JsonStructure.product(rs.getInt("id"), rs.getInt("seller"), rs.getString("title"), rs.getString("description") , rs.getString("price"), rs.getInt("stock")));
+                    hasil.add("\t{\n" + JsonStructure.product(rs.getInt("id"), rs.getInt("seller"), rs.getString("title"), rs.getString("description") , rs.getString("price"), rs.getInt("stock")) + "\n\t}");
                 }
             } else if (tabel.equals("orders")) {
                 while (rs.next()) {
-                    hasil.add(JsonStructure.orders(rs.getInt("id"), rs.getInt("buyer"), rs.getInt("note"), rs.getInt("total") , rs.getInt("discount"), rs.getString("is_paid")));
+                    hasil.add("\t{\n" + JsonStructure.orders(rs.getInt("id"), rs.getInt("buyer"), rs.getInt("note"), rs.getInt("total") , rs.getInt("discount"), rs.getString("is_paid")) + "\n\t}");
                 }
             }
 
@@ -224,11 +222,11 @@ public class ConnectSQL {
             // loop through the result set
             if (tabel.equals("order_details")) {
                 while (rs.next()) {
-                    hasil.add(JsonStructure.orderDetail(rs.getInt("order_id"), rs.getInt("product"), rs.getInt("quantity"), rs.getInt("price")));
+                    hasil.add("\t{\n" + JsonStructure.orderDetail(rs.getInt("order_id"), rs.getInt("product"), rs.getInt("quantity"), rs.getInt("price")) + "\n\t}");
                 }
             } else if (tabel.equals("reviews")) {
                 while (rs.next()) {
-                    hasil.add(JsonStructure.reviews(rs.getInt("order_id"), rs.getInt("star"), rs.getString("description")));
+                    hasil.add("\t{\n" + JsonStructure.reviews(rs.getInt("order_id"), rs.getInt("star"), rs.getString("description")) + "\n\t}");
                 }
             }
 
@@ -251,11 +249,8 @@ public class ConnectSQL {
             Connection connect = this.connect();
             Statement stmt  = connect.createStatement();
             ResultSet rs    = stmt.executeQuery(sql);
-
-
-            // loop through the result set
             while (rs.next()) {
-                hasil.add(JsonStructure.addresses(rs.getInt("users"), rs.getString("type"), rs.getString("line1"), rs.getString("line2") , rs.getString("city"), rs.getString("province"), rs.getString("postcode") ));
+                hasil.add("\t{\n" + JsonStructure.addresses(rs.getInt("users"), rs.getString("type"), rs.getString("line1"), rs.getString("line2") , rs.getString("city"), rs.getString("province"), rs.getString("postcode")) + "\n\t}");
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -342,27 +337,27 @@ public class ConnectSQL {
 
             if (tabel.equals("users")){
                 while (rs.next()) {
-                    hasil.add(JsonStructure.user(rs.getInt("id"), rs.getString("first_name"), rs.getString("last_name"), rs.getString("email") , rs.getString("phone_number"), rs.getString("type") ));
+                    hasil.add("{\n" + JsonStructure.user(rs.getInt("id"), rs.getString("first_name"), rs.getString("last_name"), rs.getString("email") , rs.getString("phone_number"), rs.getString("type")) + "\n\t}");
                 }
             } else if (tabel.equals("addresses")) {
                 while (rs.next()) {
-                    hasil.add(JsonStructure.addresses(rs.getInt("users"), rs.getString("type"), rs.getString("line1"), rs.getString("line2") , rs.getString("city"), rs.getString("province"), rs.getString("postcode") ));
+                    hasil.add("\t{\n" + JsonStructure.addresses(rs.getInt("users"), rs.getString("type"), rs.getString("line1"), rs.getString("line2") , rs.getString("city"), rs.getString("province"), rs.getString("postcode")) + "\n\t}");
                 }
             } else if (tabel.equals("products")) {
                 while (rs.next()) {
-                    hasil.add(JsonStructure.product(rs.getInt("id"), rs.getInt("seller"), rs.getString("title"), rs.getString("description") , rs.getString("price"), rs.getInt("stock")));
+                    hasil.add("\t{\n" + JsonStructure.product(rs.getInt("id"), rs.getInt("seller"), rs.getString("title"), rs.getString("description") , rs.getString("price"), rs.getInt("stock")) + "\n\t}");
                 }
             } else if (tabel.equals("orders")) {
                 while (rs.next()) {
-                    hasil.add(JsonStructure.orders(rs.getInt("id"), rs.getInt("buyer"), rs.getInt("note"), rs.getInt("total") , rs.getInt("discount"), rs.getString("is_paid")));
+                    hasil.add("\t{\n" + JsonStructure.orders(rs.getInt("id"), rs.getInt("buyer"), rs.getInt("note"), rs.getInt("total") , rs.getInt("discount"), rs.getString("is_paid")) + "\n\t}");
                 }
             } else if (tabel.equals("orders_details")) {
                 while (rs.next()) {
-                    hasil.add(JsonStructure.orderDetail(rs.getInt("order_id"), rs.getInt("product"), rs.getInt("quantity"), rs.getInt("price")));
+                    hasil.add("\t{\n" + JsonStructure.orderDetail(rs.getInt("order_id"), rs.getInt("product"), rs.getInt("quantity"), rs.getInt("price")) + "\n\t}");
                 }
             } else if (tabel.equals("reviews")) {
                 while (rs.next()) {
-                    hasil.add(JsonStructure.reviews(rs.getInt("order_id"), rs.getInt("star"), rs.getString("description")));
+                    hasil.add("\t{\n" + JsonStructure.reviews(rs.getInt("order_id"), rs.getInt("star"), rs.getString("description"))+ "\n\t}");
                 }
             }
         } catch (SQLException e) {
@@ -386,27 +381,27 @@ public class ConnectSQL {
 
             if (tabel.equals("users")){
                 while (rs.next()) {
-                    hasil.add(JsonStructure.user(rs.getInt("id"), rs.getString("first_name"), rs.getString("last_name"), rs.getString("email") , rs.getString("phone_number"), rs.getString("type") ));
+                    hasil.add("\t{\n" + JsonStructure.user(rs.getInt("id"), rs.getString("first_name"), rs.getString("last_name"), rs.getString("email") , rs.getString("phone_number"), rs.getString("type")) + "\n\t}");
                 }
             } else if (tabel.equals("addresses")) {
                 while (rs.next()) {
-                    hasil.add(JsonStructure.addresses(rs.getInt("users"), rs.getString("type"), rs.getString("line1"), rs.getString("line2") , rs.getString("city"), rs.getString("province"), rs.getString("postcode") ));
+                    hasil.add("\t{\n" + JsonStructure.addresses(rs.getInt("users"), rs.getString("type"), rs.getString("line1"), rs.getString("line2") , rs.getString("city"), rs.getString("province"), rs.getString("postcode")) + "\n\t}");
                 }
             } else if (tabel.equals("products")) {
                 while (rs.next()) {
-                    hasil.add(JsonStructure.product(rs.getInt("id"), rs.getInt("seller"), rs.getString("title"), rs.getString("description") , rs.getString("price"), rs.getInt("stock")));
+                    hasil.add("\t{\n" + JsonStructure.product(rs.getInt("id"), rs.getInt("seller"), rs.getString("title"), rs.getString("description") , rs.getString("price"), rs.getInt("stock")) + "\n\t}");
                 }
             } else if (tabel.equals("orders")) {
                 while (rs.next()) {
-                    hasil.add(JsonStructure.orders(rs.getInt("id"), rs.getInt("buyer"), rs.getInt("note"), rs.getInt("total") , rs.getInt("discount"), rs.getString("is_paid")));
+                    hasil.add("\t{\n" + JsonStructure.orders(rs.getInt("id"), rs.getInt("buyer"), rs.getInt("note"), rs.getInt("total") , rs.getInt("discount"), rs.getString("is_paid")) + "\n\t}");
                 }
             } else if (tabel.equals("orders_details")) {
                 while (rs.next()) {
-                    hasil.add(JsonStructure.orderDetail(rs.getInt("order_id"), rs.getInt("product"), rs.getInt("quantity"), rs.getInt("price")));
+                    hasil.add("\t{\n" + JsonStructure.orderDetail(rs.getInt("order_id"), rs.getInt("product"), rs.getInt("quantity"), rs.getInt("price")) + "\n\t}");
                 }
             } else if (tabel.equals("reviews")) {
                 while (rs.next()) {
-                    hasil.add(JsonStructure.reviews(rs.getInt("order_id"), rs.getInt("star"), rs.getString("description")));
+                    hasil.add("\t{\n" + JsonStructure.reviews(rs.getInt("order_id"), rs.getInt("star"), rs.getString("description")) + "\n\t}");
                 }
             }
         } catch (SQLException e) {
