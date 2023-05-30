@@ -3,7 +3,7 @@
 ## PENJELASAN
 merupakan API untuk melakukan perubahan di dalam database untuk e-commerce. API ini dapat menghandle methode PUT, GET, DELETE, dan juga POST. 
 
-##API KEY
+## API KEY
 API KEY pada API ini adalah "x-api-key"
 VALUE pada API ini adalah "niceguy_bmljZWd1eq"
 
